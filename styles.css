@@ -1,0 +1,159 @@
+@font-face {
+    font-family: "mk grotesk";
+    src: url(fonts/HankenGrotesk-VariableFont_wght.ttf);
+}
+body{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: "mk grotesk";
+    overflow: hidden;
+}
+.container{
+    position:absolute;
+    top:0;
+    background: linear-gradient(to bottom, #15009b,#2c2740);
+    align-items: center;
+    text-align: center;
+    height: 120dvh;
+    width:100%;
+    padding: 1rem;
+}
+
+.title h1{
+    font-size: 5rem;
+    margin-bottom: 0;
+}
+.title p{
+    margin-top: 0;
+    font-size: 2rem;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+#startBtn{
+    border:none;
+    border-radius: 15px;
+    padding: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #12229d;
+    font-size: 1rem;
+}
+.breaks-section{
+    background-color: rgba(240, 248, 255, 0.39);
+    position: relative;
+    justify-self: center;
+    align-self: center;
+    border-radius: 15px;
+    width: 40vw;
+    height: 60vh;
+    padding: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: center;
+    
+}
+#titleMain{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+.breaks-section button{
+    border:none;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'mk grotesk';
+    
+
+    
+}
+#setBreak{
+    display:none;
+    justify-content: center;
+    color: #050a30;
+    background-color: rgba(223, 223, 223, 0.466);
+    position: relative;
+    justify-self:center;
+    z-index: 9999;
+    width: 60%;
+    border-radius: 15px;
+    padding: 6px;
+    transform: translateY(-20px);
+    align-items: center;
+    opacity: 0;
+    transition: all .2s ease;
+    
+}
+#addBreak{
+    cursor:pointer;
+    transition: all .5s ease;
+}
+#addBreak:hover{
+    background-color: #050a30;
+    color:white;
+}
+#setBreak .selectTime{
+    
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+
+}
+#setBreak select::-webkit-scrollbar{
+    width: 5px
+
+}
+
+.timeBtn{
+    /* background-color: transparent; */
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 4px;
+    cursor:pointer;
+}
+
+#createBreakBtn{
+    background-color: #050a30;
+    margin: 10px;
+    color:white;
+    padding:10px;
+    cursor:pointer;
+}
+#dropdownHours{
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 150px; /* 🔥 Limita la altura */
+    overflow-y: auto; /* Activa el scroll */
+    
+}
+
+.dropdown{
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 150px; /* 🔥 Limita la altura */
+    overflow-y: auto; /* Activa el scroll */
+    width: 60px;
+    border-radius:15px;
+    scrollbar-width: none;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all .3s ease
+    
+}
+
+.dropdown div {
+    padding: 5px;
+    cursor: pointer;
+    
+}
+.dropdown div:hover {
+    background: #a56262;
+}
