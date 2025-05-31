@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Break Alert</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="breaks-section">
-            <p id="titleMain">add your breaks here</p>
+      <div class="breaks-section">
+        <p id="titleMain">add your breaks here</p>
 
-            <div class="breaks">
-                <button id="addBreak" onclick="showSetBreak()">+ Add break</button>
-                <div id="setBreak" >
-                    <p>set time (24h): </p>
-                    <div id="hours" class="selectTime">
-                        <button id="hourSelected" class="timeBtn" onclick="toggleDropdown('dropdownHours')">00</button>
-                        <div id="dropdownHours" class="dropdown"></div>
-                    </div>
-                    <p>:</p>
-                    <div id="minutes" class="selectTime">
-                        <button id="minuteSelected" class="timeBtn" onclick="toggleDropdown('dropdownMinutes')">00</button>
-                        <div id="dropdownMinutes" class="dropdown"></div>
-                    </div>
-                    <button id="createBreakBtn" onclick="saveBreak()" >Done</button>
-                    
-                </div>
-                <div id="breaksCreated">
-
-                </div>
+        <div class="breaks">
+          <button id="addBreak" onclick="showSetBreak()">NEW BREAK</button>
+          <div id="setBreak">
+            <p>set time (24h):</p>
+            <div id="hours" class="selectTime">
+              <button
+                id="hourSelected"
+                class="timeBtn"
+                onclick="toggleDropdown('dropdownHours')"
+              >
+                00
+              </button>
+              <div id="dropdownHours" class="dropdown"></div>
             </div>
+            <p>:</p>
+            <div id="minutes" class="selectTime">
+              <button
+                id="minuteSelected"
+                class="timeBtn"
+                onclick="toggleDropdown('dropdownMinutes')"
+              >
+                00
+              </button>
+              <div id="dropdownMinutes" class="dropdown"></div>
+            </div>
+            <button id="createBreakBtn" onclick="saveBreak()">Done</button>
+          </div>
+          <div id="breaksCreated"></div>
         </div>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
