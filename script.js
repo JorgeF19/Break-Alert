@@ -19,11 +19,19 @@ function llenarLista(id, inicio, fin) {
   let lista = document.getElementById(id);
   lista.innerHTML = "";
 
+  // Agrega el último elemento al principio para el efecto loop visual
+  let lastOption = document.createElement("div");
+  lastOption.innerText = fin < 10 ? "0" + fin : fin;
+  lastOption.onclick = function () {
+    document.getElementById(id).previousElementSibling.innerText =
+      this.innerText;
+    lista.style.display = "none";
+  };
+  lista.appendChild(lastOption);
+
   for (let i = inicio; i <= fin; i++) {
     let option = document.createElement("div");
-
-    option.innerText = i < 10 ? "0" + i : i; // Asegura formato 00
-
+    option.innerText = i < 10 ? "0" + i : i;
     option.onclick = function () {
       document.getElementById(id).previousElementSibling.innerText =
         this.innerText;
@@ -31,10 +39,66 @@ function llenarLista(id, inicio, fin) {
     };
     lista.appendChild(option);
   }
+
+  // Agrega el primer elemento al final para el efecto loop visual
+  let firstOption = document.createElement("div");
+  firstOption.innerText = inicio < 10 ? "0" + inicio : inicio;
+  firstOption.onclick = function () {
+    document.getElementById(id).previousElementSibling.innerText =
+      this.innerText;
+    lista.style.display = "none";
+  };
+  lista.appendChild(firstOption);
 }
 
-llenarLista("dropdownHours", 0, 23);
-llenarLista("dropdownMinutes", 0, 59);
+function llenarListaInfinita(id, inicio, fin) {
+  const lista = document.getElementById(id);
+  lista.innerHTML = "";
+
+  // Crea los elementos originales
+  let items = [];
+  for (let i = inicio; i <= fin; i++) {
+    let option = document.createElement("div");
+    option.innerText = i < 10 ? "0" + i : i;
+    option.onclick = function () {
+      document.getElementById(id).previousElementSibling.innerText =
+        this.innerText;
+      lista.style.display = "none";
+    };
+    items.push(option);
+  }
+
+  // Clona los últimos 5 y los primeros 5 para el efecto loop
+  let clonesBefore = items.slice(-5).map((node) => node.cloneNode(true));
+  let clonesAfter = items.slice(0, 5).map((node) => node.cloneNode(true));
+
+  // Añade clones antes, originales y clones después
+  clonesBefore.forEach((clone) => lista.appendChild(clone));
+  items.forEach((item) => lista.appendChild(item));
+  clonesAfter.forEach((clone) => lista.appendChild(clone));
+
+  // Ajusta el scroll al primer elemento real
+  setTimeout(() => {
+    lista.scrollTop = clonesBefore.length * items[0].offsetHeight;
+  }, 0);
+
+  // Evento para el loop
+  lista.onscroll = function () {
+    const itemHeight = items[0].offsetHeight;
+    const totalItems = items.length;
+    if (lista.scrollTop <= itemHeight * 0.5) {
+      // Si sube demasiado, salta al final real
+      lista.scrollTop = itemHeight * totalItems + lista.scrollTop;
+    } else if (lista.scrollTop >= itemHeight * (totalItems + 5)) {
+      // Si baja demasiado, salta al inicio real
+      lista.scrollTop = lista.scrollTop - itemHeight * totalItems;
+    }
+  };
+}
+
+// Llama a la función para minutos y horas
+llenarListaInfinita("dropdownMinutes", 0, 59);
+llenarListaInfinita("dropdownHours", 0, 23);
 
 function showSetBreak() {
   breakContainer = document.getElementById("setBreak");
@@ -44,6 +108,20 @@ function showSetBreak() {
     breakContainer.style.opacity = "1";
     breakContainer.style.transform = "translateY(20px)";
   }, 10);
+}
+
+function cancelBreak() {
+  // Oculta el contenedor
+  breakContainer = document.getElementById("setBreak");
+  breakContainer.style.opacity = "0";
+  breakContainer.style.transform = "translateY(-10px)";
+  setTimeout(() => {
+    breakContainer.style.display = "none";
+    if (editingDiv) {
+      editingDiv.classList.remove("break-editing");
+      editingDiv = null; // Limpia la variable de edición
+    }
+  }, 300);
 }
 
 function saveBreak() {
@@ -202,3 +280,12 @@ setInterval(() => {
     alertActive = false; // Libera el confirm si cambia la hora
   }
 }, 10000);
+
+function toggleScroll() {
+  let breaks = localStorage.getItem("breaks");
+  if (breaks.length > 3) {
+    container = document.getElementById("breaksCreated");
+    container.style.overflowY = "auto";
+  }
+}
+toggleScroll(); // Llama a la función al cargar la página
